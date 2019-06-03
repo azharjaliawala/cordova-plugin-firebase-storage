@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-firebase-storage" version="0.0.1" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>cordova-plugin-firebase-storage</name>
+    <description>Cordova plugin for firebase storage</description>
+    <license>MIT</license>
+    <keywords>cordova</keywords>
+    <repo>https://github.com/azharjaliawala/cordova-plugin-firebase-storage</repo>
+    <issue>https://github.com/azharjaliawala/cordova-plugin-firebase-storage/issues</issue>
+
+    <js-module name="FirebaseStorage" src="www/FirebaseStorage.js">
+        <merges target="cordova.plugins.firebase.storage" />
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=7.1.0"/>
+        <engine name="cordova-android" version=">=7.0.0"/>
+    </engines>
+
+    <platform name="android">
+        <preference name="FIREBASE_STORAGE_VERSION" default="17.0.+"/>
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="FirebaseStorage">
+                <param name="android-package" value="by.azharjaliawala.cordova.firebase.FirebaseStoragePlugin" />
+                <param name="onload" value="false" />
+            </feature>
+        </config-file>
+
+        <dependency id="cordova-support-android-plugin" version="~1.0.0"/>
+        <dependency id="cordova-support-google-services" version="^1.2.0"/>
+
+        <framework src="com.google.firebase:firebase-storage:$FIREBASE_STORAGE_VERSION" />
+
+        <source-file src="src/android/FirebaseStoragePlugin.java" target-dir="src/by/azharjaliawala/cordova/firebase" />
+    </platform>
+</plugin>

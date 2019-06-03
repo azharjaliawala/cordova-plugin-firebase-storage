@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-firebase-storage",
+  "version": "0.0.1",
+  "description": "Cordova plugin for firebase storage",
+  "cordova": {
+    "id": "cordova-plugin-firebase-storage",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azharjaliawala/cordova-plugin-firebase-storage.git"
+  },
+  "author": "Azhar Asif Jaliawala <azharjaliawala@gmail.com> (https://github.com/azharjaliawala)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azharjaliawala/cordova-plugin-firebase-storage/issues"
+  },
+  "scripts": {
+    "version": "replace -s 'version=\"(.+)(?=\">)' 'version=\"'$npm_package_version plugin.xml && git add plugin.xml",
+    "postversion": "git push && git push --tags"
+  },
+  "homepage": "https://github.com/azharjaliawala/cordova-plugin-firebase-storage#readme",
+  "keywords": [
+    "cordova",
+    "firebase",
+    "storage",
+    "ecosystem:cordova",
+    "cordova-android"
+  ]
+}
