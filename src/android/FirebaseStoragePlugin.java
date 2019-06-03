@@ -13,7 +13,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
 
-public class FirebaseStoragePlugin extends CordovaPlugin implements AuthStateListener {
+public class FirebaseStoragePlugin extends CordovaPlugin {
 
     public void uploadPicture(String picUrl, String picName, CallbackContext callbackContext) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -25,17 +25,32 @@ public class FirebaseStoragePlugin extends CordovaPlugin implements AuthStateLis
         StorageReference riversRef = storageRef.child("images/" + picName);
         uploadTask = riversRef.putFile(file);
 
-        uploadTask.addOnFailureListener(cordova.getActivity(), new OnFailureListener() {
+        uploadTask.addOnCompleteListener(cordova.getActivity(), createCompleteListener(callbackContext));
+
+        // uploadTask.addOnFailureListener(cordova.getActivity(), new OnFailureListener() {
+        //     @Override
+        //     public void onFailure(@NonNull Exception exception) {
+        //         callbackContext.error(exception.getMessage());
+        //     }
+        // }).addOnSuccessListener(cordova.getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        //     @Override
+        //     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        //         // taskSnapshot.getMetadata() contains file metadata
+        //         callbackContext.success(taskSnapshot.getMetadata());
+        //     }
+        // });
+    }
+
+    private static <T> OnCompleteListener<T> createCompleteListener(final CallbackContext callbackContext) {
+        return new OnCompleteListener<T>() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                callbackContext.error(exception.getMessage());
+            public void onComplete(Task task) {
+                if (task.isSuccessful()) {
+                    callbackContext.success();
+                } else {
+                    callbackContext.error(task.getException().getMessage());
+                }
             }
-        }).addOnSuccessListener(cordova.getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata
-                callbackContext.success(taskSnapshot.getMetadata());
-            }
-        });
+        };
     }
 }
