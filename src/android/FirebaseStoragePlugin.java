@@ -45,7 +45,7 @@ public class FirebaseStoragePlugin extends CordovaPlugin {
         StorageReference riversRef = storageRef.child("images/" + picName);
         uploadTask = riversRef.putFile(file);
 
-        uploadTask.addOnCompleteListener(cordova.getActivity(), createCompleteListener(callbackContext));
+        // uploadTask.addOnCompleteListener(cordova.getActivity(), createCompleteListener(callbackContext));
 
         uploadTask.addOnFailureListener(cordova.getActivity(), new OnFailureListener() {
             @Override
