@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -33,15 +32,12 @@ public class FirebaseStoragePlugin extends ReflectiveCordovaPlugin {
     }
 
     @CordovaMethod
-    public void uploadPicture(String picUrl, String picName, final CallbackContext callbackContext) {
+    public void uploadPicture(String fileUri, String filePath, final CallbackContext callbackContext) {
         StorageReference storageRef = storage.getReference();
 
-        Uri file = Uri.parse(picUrl);
-        StorageMetadata metadata = new StorageMetadata.Builder()
-                .setContentType("image/jpeg")
-                .build();
-        StorageReference imageRef = storageRef.child("images/"+picName);
-        UploadTask uploadTask = imageRef.putFile(file, metadata);
+        Uri file = Uri.parse(fileUri);
+        StorageReference imageRef = storageRef.child(filePath);
+        UploadTask uploadTask = imageRef.putFile(file);
 
         uploadTask.addOnSuccessListener(cordova.getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
