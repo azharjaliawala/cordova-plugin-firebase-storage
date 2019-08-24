@@ -83,3 +83,5 @@ public class FirebaseStoragePlugin extends ReflectiveCordovaPlugin {
             }
         });
     }
+
+}
