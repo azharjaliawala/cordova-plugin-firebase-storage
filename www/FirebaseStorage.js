@@ -6,5 +6,10 @@ module.exports = {
         return new Promise(function (resolve, reject) {
             exec(resolve, reject, PLUGIN_NAME, "uploadPicture", [fileUri, filePath]);
         });
+    },
+    uploadVideo: function (fileUri, filePath) {
+        return new Promise(function (resolve, reject) {
+            exec(resolve, reject, PLUGIN_NAME, "uploadVideo", [fileUri, filePath]);
+        });
     }
 };
