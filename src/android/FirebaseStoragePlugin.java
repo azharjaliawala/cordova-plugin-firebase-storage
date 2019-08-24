@@ -57,31 +57,4 @@ public class FirebaseStoragePlugin extends ReflectiveCordovaPlugin {
             }
         });
     }
-
-    @CordovaMethod
-    public void uploadVideo(String fileUri, String filePath, final CallbackContext callbackContext) {
-        StorageReference storageRef = storage.getReference();
-
-        StorageReference videoRef = storageRef.child(filePath);
-        UploadTask uploadTask = videoRef.putFile(fileUri);
-
-        uploadTask.addOnSuccessListener(cordova.getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata
-                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        callbackContext.success(uri.toString());
-                    }
-                });
-            }
-        }).addOnFailureListener(cordova.getActivity(), new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                callbackContext.error("Upload failed: " + exception.getMessage());
-            }
-        });
-    }
-
 }
